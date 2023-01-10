@@ -1,6 +1,6 @@
 type s = "s" | "sm" | "m" | "l" | "xl";
 
-interface productsInterface {
+export interface productsInterface {
   name: string;
   brand: string;
   productImageUrl: string;
