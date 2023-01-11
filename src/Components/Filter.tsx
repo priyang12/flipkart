@@ -30,7 +30,8 @@ function Filter({
           >
             <div className="flex justify-between items-center">
               <h2>Sizes:</h2>
-              <input type="reset" value="Reset" className="btn p-2" />
+
+              <input type="reset" value="Reset" className="link" />
             </div>
             {Sizes.map((item) => (
               <div className="form-control">

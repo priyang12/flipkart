@@ -4,6 +4,7 @@ import ProductData from "../data.json";
 import { productsInterface } from "../data";
 import Filter from "./Components/Filter";
 import "./App.css";
+import { SortProductPrize } from "./utils/sort";
 
 const ProductsName = "Clothing And Accessories";
 const SizesList: productsInterface["sizes"] = ["s", "sm", "m", "l", "xl"];
@@ -23,6 +24,11 @@ const BrandsList: productsInterface["brand"][] = [
 ];
 
 function App() {
+  const SortedProducts = SortProductPrize(
+    "LowToHigh",
+    ProductData.products as productsInterface[]
+  );
+
   return (
     <div className="">
       <Navbar />
@@ -34,11 +40,7 @@ function App() {
         />
         <div className="bg-base-300 py-5">
           <h1 className="md:mx-xl text-2xl pb-5">{ProductsName}</h1>
-          <Products
-            ProductsData={
-              ProductData.products.slice(0, 6) as productsInterface[]
-            }
-          />
+          <Products ProductsData={SortedProducts.slice(0, 6)} />
         </div>
       </div>
     </div>
