@@ -18,7 +18,7 @@ function ProductCard({ Item }: { Item: productsInterface }) {
         <div className="text-gray-500 font-medium text-xl">{Item.brand}</div>
         <h2 className="truncate">{Item.name}</h2>
         <div className="flex flex-col md:flex-row items-center justify-start gap-5">
-          <div className="font-medium text-black text-xl">
+          <div className="font-medium text-base-content text-xl">
             ₹
             {Math.floor(
               Item.originalPrice -
@@ -36,12 +36,10 @@ function ProductCard({ Item }: { Item: productsInterface }) {
           <span className="text-gray-500">Size: </span>
           <div className="">
             {Item.sizes.map((sizeItem, index) => (
-              <>
-                <span className="border-primary mx-1">
-                  {sizeItem?.toUpperCase()}
-                  {Item.sizes.length - 1 !== index ? <span>,</span> : null}
-                </span>
-              </>
+              <span className="border-primary mx-1" key={sizeItem}>
+                {sizeItem?.toUpperCase()}
+                {Item.sizes.length - 1 !== index ? <span>,</span> : null}
+              </span>
             ))}
           </div>
         </div>
@@ -57,10 +55,10 @@ function Products({
 } & React.ComponentPropsWithoutRef<"div">) {
   if (!ProductsData) return null;
   return (
-    <div className="md:mx-xl">
+    <div className="md:mx-sm">
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
-        {ProductsData?.map((item) => (
-          <ProductCard Item={item} />
+        {ProductsData?.map((item, index) => (
+          <ProductCard Item={item} key={index} />
         ))}
       </div>
     </div>

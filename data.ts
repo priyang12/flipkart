@@ -1,8 +1,20 @@
 type s = "s" | "sm" | "m" | "l" | "xl";
+type brandNames =
+  | "Versace"
+  | "Louis Vuitton"
+  | "Prada"
+  | "Helmont"
+  | "Smartees"
+  | "Seven Rocks"
+  | "Tripr"
+  | "Metro Fashion"
+  | "Mokshi"
+  | "POLO"
+  | "Zara";
 
 export interface productsInterface {
   name: string;
-  brand: string;
+  brand: Partial<brandNames>;
   productImageUrl: string;
   originalPrice: number;
   sizes: Partial<s[]>;
@@ -54,7 +66,7 @@ export const products: productsInterface[] = [
     rating: 5,
   },
   {
-    brand: "LouisVuitton",
+    brand: "Louis Vuitton",
     name: "Full Sleeve Solid Women Quilted Jacket",
     discountPercentage: 20,
     originalPrice: 3500,
@@ -150,7 +162,7 @@ export const products: productsInterface[] = [
       "https://rukminim1.flixcart.com/image/880/1056/k51cpe80/kurta/d/u/y/s-ku493ylo-mokshi-original-imafnta9sj4fjhwa.jpeg?q=50",
     originalPrice: 599,
     sizes: ["s", "m", "l", "xl"],
-    brand: "Mokshi",
+    brand: "Zara",
     gender: "female",
     assured: true,
     category: "cloths",
@@ -214,7 +226,7 @@ export const products: productsInterface[] = [
     originalPrice: 999,
     discountPercentage: 40,
     rating: 4.69,
-    brand: "Nency",
+    brand: "Prada",
     category: "clothware",
     productImageUrl:
       "https://images-na.ssl-images-amazon.com/images/I/711SbGLL80L._UL1500_.jpg",
@@ -227,7 +239,7 @@ export const products: productsInterface[] = [
     originalPrice: 1199,
     discountPercentage: 15,
     rating: 4.69,
-    brand: "Apple",
+    brand: "POLO",
     category: "clothware",
     productImageUrl:
       "https://images-na.ssl-images-amazon.com/images/I/711SbGLL80L._UL1500_.jpg",
@@ -240,7 +252,7 @@ export const products: productsInterface[] = [
     originalPrice: 1999,
     discountPercentage: 50,
     rating: 4.69,
-    brand: "Apple",
+    brand: "Prada",
     category: "clothware",
     productImageUrl:
       "https://images-na.ssl-images-amazon.com/images/I/711SbGLL80L._UL1500_.jpg",
