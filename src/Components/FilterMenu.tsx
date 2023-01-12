@@ -73,7 +73,6 @@ function FilterMenu({ children }: React.ComponentPropsWithoutRef<"div">) {
   ) => {
     setSelectedGender(event.target.value as productsInterface["gender"]);
   };
-  console.log(SelectedGender);
 
   const SetFilter = () => {
     const query = new URLSearchParams();
@@ -96,7 +95,7 @@ function FilterMenu({ children }: React.ComponentPropsWithoutRef<"div">) {
     <div className="w-1/3 bg-base-200 pb-sm rounded-md pt-5">
       <div className="">
         <h1 className="text-3xl text-center pb-5">Filters</h1>
-        <div className="flex justify-evenly">
+        <div className="flex flex-col lg:flex-row w-1/2 gap-5 mx-auto justify-evenly">
           <input
             type="submit"
             value="Apply Filter"

@@ -7,37 +7,43 @@ import Sort from "./Components/Sort";
 import FilterMenu from "./Components/FilterMenu";
 import { SortProductPrize } from "./utils/sort";
 import { productsInterface } from "../data";
-import "./App.css";
+import Pagination from "./Components/Pagination";
 import { Filter } from "./utils/Filter";
+import "./App.css";
 
 const ProductsName = "Clothing And Accessories";
+const PerPage = 9;
 
 function App() {
   const { search } = useLocation();
-
+  const params = new URLSearchParams(search);
   const FilteredProducts = Filter(
     search.substring(1),
     ProductData.products as productsInterface[]
+  );
+  const TotalPages = Math.ceil(FilteredProducts.length / PerPage);
+  const Page = params.get("Page") ? Number(params.get("Page")) : 1;
+  const PageProducts = FilteredProducts.slice(
+    PerPage * (Page - 1),
+    Page * PerPage
   );
 
   const [SortBy, setSortBy] = React.useState<"LowToHigh" | "HighToLow">(
     "LowToHigh"
   );
 
-  const SortedProducts = SortProductPrize(
-    SortBy,
-    FilteredProducts as productsInterface[]
-  );
+  const SortedProducts = SortProductPrize(SortBy, PageProducts);
 
   return (
     <>
       <Navbar />
       <div className="flex my-sm mx-sm gap-5">
         <FilterMenu />
-        <div className="bg-base-300 py-5 w-full">
+        <div className="bg-base-300 py-5 w-full rounded-md">
           <h1 className="md:mx-xl text-2xl pb-5">{ProductsName}</h1>
           <Sort SortBy={SortBy} setSortBy={setSortBy} />
-          <Products ProductsData={SortedProducts.slice(0, 6)} />
+          <Products ProductsData={SortedProducts.slice(0, 9)} />
+          <Pagination TotalPages={TotalPages} />
         </div>
       </div>
     </>

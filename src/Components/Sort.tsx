@@ -1,5 +1,6 @@
 import { clsx } from "clsx";
 import React from "react";
+import { useSearchParams } from "react-router-dom";
 
 function Sort({
   SortBy,
@@ -8,6 +9,22 @@ function Sort({
   SortBy: "LowToHigh" | "HighToLow";
   setSortBy: React.Dispatch<React.SetStateAction<"LowToHigh" | "HighToLow">>;
 }) {
+  const [search, setSearch] = useSearchParams();
+
+  const LowToHigh: React.ComponentPropsWithoutRef<"button">["onClick"] = (
+    e
+  ) => {
+    if (search.has("Page")) search.delete("Page");
+    setSortBy("LowToHigh");
+    setSearch(search);
+  };
+  const HighToLow: React.ComponentPropsWithoutRef<"button">["onClick"] = (
+    e
+  ) => {
+    if (search.has("Page")) search.delete("Page");
+    setSortBy("HighToLow");
+    setSearch(search);
+  };
   return (
     <div>
       <div className="flex w-full py-5">
@@ -17,7 +34,7 @@ function Sort({
               "btn",
               SortBy === "LowToHigh" ? "btn-ghost" : "btn-outline"
             )}
-            onClick={(e) => setSortBy("LowToHigh")}
+            onClick={LowToHigh}
           >
             Low To High
           </button>
@@ -29,7 +46,7 @@ function Sort({
               "btn",
               SortBy === "HighToLow" ? "btn-ghost" : "btn-outline"
             )}
-            onClick={(e) => setSortBy("HighToLow")}
+            onClick={HighToLow}
           >
             High To Low
           </button>

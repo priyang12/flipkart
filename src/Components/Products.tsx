@@ -4,17 +4,18 @@ import type { productsInterface } from "../../data";
 function ProductCard({ Item }: { Item: productsInterface }) {
   return (
     <div
-      className="card hover:shadow-xl border-2 border-white border-solid transition-all ease-out duration-300"
+      className="card hover:shadow-xl border-2 overflow-hidden border-white border-solid transition-all ease-out duration-300"
+      tabIndex={0}
       key={Item.name}
     >
-      <figure className="px-10 cursor-pointer">
+      <figure className="px-5 pt-5 cursor-pointer">
         <img
           src={Item.productImageUrl}
           alt="Shoes"
           className="rounded-xl h-80 w-full"
         />
       </figure>
-      <div className="card-body py-5">
+      <div className="card-body py-5 translate-y-1/3 transition-transform duration-300 ease-in-out hover:translate-y-0">
         <div className="text-gray-500 font-medium text-xl">{Item.brand}</div>
         <h2 className="truncate">{Item.name}</h2>
         <div className="flex flex-col md:flex-row items-center justify-start gap-5">
@@ -43,6 +44,7 @@ function ProductCard({ Item }: { Item: productsInterface }) {
             ))}
           </div>
         </div>
+        <button className="btn">Add To Cart</button>
       </div>
     </div>
   );

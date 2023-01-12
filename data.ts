@@ -185,7 +185,7 @@ export const products: productsInterface[] = [
   {
     name: "Shirt 1",
     originalPrice: 549,
-    discountPercentage: 12.96,
+    discountPercentage: 12,
     rating: 4.69,
     brand: "POLO",
     category: "clothware",
