@@ -3,8 +3,8 @@ import Products from "./Components/Products";
 import ProductData from "../data.json";
 import { productsInterface } from "../data";
 import Filter from "./Components/Filter";
-import "./App.css";
 import { SortProductPrize } from "./utils/sort";
+import "./App.css";
 
 const ProductsName = "Clothing And Accessories";
 const SizesList: productsInterface["sizes"] = ["s", "sm", "m", "l", "xl"];

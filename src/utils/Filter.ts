@@ -14,17 +14,23 @@ export const Filter = (query: string, Products: productsInterface[]) => {
     // Add the key and value to the filters object
     filters[key] = value;
   });
+
   // filter the product based on brand and size
   let filteredProducts = Products;
+
   if ("brand" in filters) {
-    filteredProducts = filteredProducts.filter(
-      (product) => product.brand === filters.brand
-    );
-  }
-  if ("size" in filters) {
+    const brands = filters.brand.split(",");
     filteredProducts = filteredProducts.filter((product) =>
-      product.sizes.includes(filters.size as any)
+      brands.some((brand) => product.brand === brand)
     );
   }
+
+  if ("size" in filters) {
+    const sizes = filters.size.split(",");
+    filteredProducts = filteredProducts.filter((product) =>
+      sizes.some((size) => product.sizes.includes(size as any))
+    );
+  }
+
   return filteredProducts;
 };
