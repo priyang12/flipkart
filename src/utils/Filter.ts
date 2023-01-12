@@ -32,5 +32,12 @@ export const Filter = (query: string, Products: productsInterface[]) => {
     );
   }
 
+  if ("gender" in filters) {
+    const gender = filters.gender;
+    filteredProducts = filteredProducts.filter(
+      (product) => product.gender === gender
+    );
+  }
+
   return filteredProducts;
 };

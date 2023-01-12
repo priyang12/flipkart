@@ -1,9 +1,11 @@
+import * as React from "react";
 import Navbar from "./Components/Navbar";
 import Products from "./Components/Products";
 import ProductData from "../data.json";
-import { productsInterface } from "../data";
+import Sort from "./Components/Sort";
 import Filter from "./Components/Filter";
 import { SortProductPrize } from "./utils/sort";
+import { productsInterface } from "../data";
 import "./App.css";
 
 const ProductsName = "Clothing And Accessories";
@@ -24,8 +26,12 @@ const BrandsList: productsInterface["brand"][] = [
 ];
 
 function App() {
+  const [SortBy, setSortBy] = React.useState<"LowToHigh" | "HighToLow">(
+    "LowToHigh"
+  );
+
   const SortedProducts = SortProductPrize(
-    "LowToHigh",
+    SortBy,
     ProductData.products as productsInterface[]
   );
 
@@ -38,8 +44,9 @@ function App() {
           GenderList={GenderList}
           BrandsList={BrandsList}
         />
-        <div className="bg-base-300 py-5">
+        <div className="bg-base-300 py-5 w-full">
           <h1 className="md:mx-xl text-2xl pb-5">{ProductsName}</h1>
+          <Sort SortBy={SortBy} setSortBy={setSortBy} />
           <Products ProductsData={SortedProducts.slice(0, 6)} />
         </div>
       </div>

@@ -30,7 +30,6 @@ function Filter({
           >
             <div className="flex justify-between items-center">
               <h2>Sizes:</h2>
-
               <input type="reset" value="Reset" className="link" />
             </div>
             {Sizes.map((item) => (
@@ -46,7 +45,7 @@ function Filter({
           <form className="p-sm">
             <div className="flex justify-between items-center">
               <h2>Genders:</h2>
-              <input type="reset" value="Reset" className="btn p-2" />
+              <input type="reset" value="Reset" className="link" />
             </div>
             {GenderList.map((item) => (
               <div className="form-control" key={item}>
@@ -70,7 +69,7 @@ function Filter({
           <form className="p-sm">
             <div className="flex justify-between items-center">
               <h2>Brands:</h2>
-              <input type="reset" value="Reset" className="btn p-2" />
+              <input type="reset" value="Reset" className="link" />
             </div>
             {BrandsList.map((item) => (
               <div className="form-control" key={item}>
