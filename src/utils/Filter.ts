@@ -1,6 +1,11 @@
 import { productsInterface } from "../../data";
 
+const SeparateSymbol = ",";
+
 export const Filter = (query: string, Products: productsInterface[]) => {
+  query = decodeURIComponent(query);
+  query = query.replace(/\+/g, " ");
+
   // Split the query string into an array
   const queryArray = query.split("&");
 
@@ -19,14 +24,14 @@ export const Filter = (query: string, Products: productsInterface[]) => {
   let filteredProducts = Products;
 
   if ("brand" in filters) {
-    const brands = filters.brand.split(",");
+    const brands = filters.brand.split(SeparateSymbol);
     filteredProducts = filteredProducts.filter((product) =>
       brands.some((brand) => product.brand === brand)
     );
   }
 
   if ("size" in filters) {
-    const sizes = filters.size.split(",");
+    const sizes = filters.size.split(SeparateSymbol);
     filteredProducts = filteredProducts.filter((product) =>
       sizes.some((size) => product.sizes.includes(size as any))
     );
