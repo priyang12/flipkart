@@ -2,18 +2,18 @@ function Navbar() {
   return (
     <div className="navbar justify-center gap-24 bg-primary p-5 text-primary-content">
       <div className="">
-        <span className="btn btn-ghost normal-case text-xl">FlipKart</span>
+        <span className="btn btn-ghost normal-case text-3xl">FlipKart</span>
       </div>
       <div className="flex-none gap-2">
         <div className="form-control">
           <input
             type="text"
             placeholder="Search"
-            className="input input-bordered"
+            className="input input-bordered text-base-content"
           />
         </div>
       </div>
-      <div className="dropdown dropdown-end">
+      <div className="dropdown dropdown-end ">
         <label tabIndex={0} className="btn btn-ghost btn-circle">
           <div className="indicator">
             <svg
@@ -37,13 +37,15 @@ function Navbar() {
         </label>
         <div
           tabIndex={0}
-          className="mt-3 card card-compact dropdown-content w-52 bg-base-100 shadow"
+          className="mt-3 card card-compact dropdown-content w-52 bg-base-100 shadow text-base-content"
         >
           <div className="card-body">
             <span className="font-bold text-lg">8 Items</span>
             <span className="text-info">Subtotal: $999</span>
             <div className="card-actions">
-              <button className="btn btn-primary btn-block">View cart</button>
+              <button className="btn btn-primary bg-primary btn-block">
+                View cart
+              </button>
             </div>
           </div>
         </div>

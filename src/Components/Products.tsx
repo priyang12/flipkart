@@ -1,4 +1,5 @@
 import React from "react";
+import AssuredLogo from "../assets/assuredIcon.png";
 import type { productsInterface } from "../../data";
 
 function ProductCard({ Item }: { Item: productsInterface }) {
@@ -17,8 +18,12 @@ function ProductCard({ Item }: { Item: productsInterface }) {
       </figure>
       <div className="card-body py-5 translate-y-1/3 transition-transform duration-300 ease-in-out hover:translate-y-0">
         <div className="text-gray-500 font-medium text-xl">{Item.brand}</div>
-        <h2 className="truncate">{Item.name}</h2>
-        <div className="flex flex-col md:flex-row items-center justify-start gap-5">
+        <div className="flex justify-between">
+          <h2 className="truncate">{Item.name}</h2>
+          <img src={AssuredLogo} alt="asd" width={60} height={50} />
+        </div>
+
+        <div className="flex flex-col md:flex-row items-center justify-start gap-5 w-52">
           <div className="font-medium text-base-content text-xl">
             ₹
             {Math.floor(

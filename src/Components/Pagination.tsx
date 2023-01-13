@@ -15,26 +15,33 @@ function Pagination({ TotalPages }: { TotalPages: number }) {
   };
 
   return (
-    <div className="flex justify-center mt-5">
+    <div className=" mt-5">
       <div className="divider"></div>
-      <div className="flex gap-sm">
-        {[...Array(TotalPages).keys()].map((item) => (
-          <button
-            className={clsx(
-              "btn text-primary-content rounded-[50%]",
-              CurrentPage === item + 1 ? "bg-primary" : null
-            )}
-            key={item}
-            onClick={() => {
-              if (Search.has("Page")) Search.delete("Page");
-              Search.append("Page", String(item + 1));
-              setSearch(Search.toString());
-              scrollToTop();
-            }}
-          >
-            {item + 1}
-          </button>
-        ))}
+      <div className="flex items-center justify-between">
+        <div className="ml-sm">
+          Page {CurrentPage} of {TotalPages}
+        </div>
+        <div className="flex gap-sm">
+          {[...Array(TotalPages).keys()].map((item) => (
+            <button
+              className={clsx(
+                "btn text-primary-content rounded-[50%]",
+                CurrentPage === item + 1 ? "bg-primary" : null
+              )}
+              key={item}
+              onClick={() => {
+                if (Search.has("Page")) Search.delete("Page");
+                Search.append("Page", String(item + 1));
+                setSearch(Search.toString());
+                scrollToTop();
+              }}
+            >
+              {item + 1}
+            </button>
+          ))}
+        </div>
+        <div></div>
+        <div></div>
       </div>
     </div>
   );

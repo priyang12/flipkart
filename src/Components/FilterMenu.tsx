@@ -88,7 +88,9 @@ function FilterMenu({ children }: React.ComponentPropsWithoutRef<"div">) {
     setSelectedSize(new Set());
     setSelectedBrands(new Set());
     setSelectedGender("");
-    setSearch("");
+    if (Search.has("Page")) {
+      setSearch(`Page=${Search.get("Page")?.toString()}`);
+    } else setSearch("");
   };
 
   return (

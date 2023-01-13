@@ -1,5 +1,5 @@
-import { clsx } from "clsx";
 import React from "react";
+import { clsx } from "clsx";
 import { useSearchParams } from "react-router-dom";
 
 function Sort({
@@ -39,7 +39,7 @@ function Sort({
             Low To High
           </button>
         </div>
-        <div className="divider divider-horizontal">OR</div>
+        <div className="divider divider-horizontal"></div>
         <div className="grid h-20 flex-grow card bg-base-300 rounded-box place-items-center">
           <button
             className={clsx(

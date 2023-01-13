@@ -1,7 +1,10 @@
 import * as React from "react";
+import { useDebounce } from "use-debounce";
+import { clsx } from "clsx";
 
 function ScrollToTop({ ButtonShow }: { ButtonShow: number }) {
   const [showButton, setShowButton] = React.useState(false);
+  const [value] = useDebounce(showButton, 500);
 
   React.useEffect(() => {
     window.addEventListener("scroll", () => {
@@ -25,7 +28,11 @@ function ScrollToTop({ ButtonShow }: { ButtonShow: number }) {
       {showButton && (
         <button
           onClick={scrollToTop}
-          className="cursor-pointer fixed top-[20px] z-10 right-[30%] text-2xl bg-primary text-primary-content px-sm rounded-xl"
+          className={clsx(
+            "cursor-pointer transition-transform ease-out duration-300 fixed top-[20px] z-10 right-[30%] text-xl bg-primary text-primary-content px-sm rounded-xl",
+            showButton ? "-translate-y-12" : null,
+            value ? "translate-y-2" : null
+          )}
         >
           Scroll To Top &#8679;
         </button>

@@ -40,6 +40,6 @@ module.exports = {
   },
   plugins: [require("daisyui")],
   daisyui: {
-    theme: ["light"],
+    themes: false,
   },
 };
