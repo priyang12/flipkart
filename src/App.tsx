@@ -4,7 +4,7 @@ import Navbar from "./Components/Navbar";
 import Products from "./Components/Products";
 import ProductData from "../data.json";
 import Sort from "./Components/Sort";
-import FilterMenu from "./Components/FilterMenu";
+import FilterMenu from "./Components/FilterMenu/FilterMenu";
 import Pagination from "./Components/Pagination";
 import { SortProductPrize } from "./utils/sort";
 import { productsInterface } from "../data";
@@ -35,7 +35,6 @@ function App() {
   );
 
   const SortedProducts = SortProductPrize(SortBy, PageProducts);
-  console.log(TotalPages);
 
   return (
     <>

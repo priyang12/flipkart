@@ -1,7 +1,8 @@
+import { RemoveButton } from "./RemoveButton";
 import React from "react";
 import { clsx } from "clsx";
-import { productsInterface } from "../../data";
 import { useSearchParams } from "react-router-dom";
+import { productsInterface } from "../../../data";
 
 const SizesList: productsInterface["sizes"] = ["s", "sm", "m", "l", "xl"];
 const GenderList: productsInterface["gender"][] = ["female", "male", "unisex"];
@@ -26,6 +27,7 @@ function FilterMenu({ children }: React.ComponentPropsWithoutRef<"div">) {
   const params = new URLSearchParams(Search);
   const Brand = params.get("brand");
   const Sizes = params.get("size");
+  const Gender = params.get("gender");
 
   const [SelectedSize, setSelectedSize] = React.useState<Set<string>>(
     Sizes ? new Set(Sizes.split(",")) : new Set()
@@ -33,9 +35,8 @@ function FilterMenu({ children }: React.ComponentPropsWithoutRef<"div">) {
   const [SelectedBrands, setSelectedBrands] = React.useState<Set<string>>(
     Brand ? new Set(Brand.split(",")) : new Set()
   );
-
   const [SelectedGender, setSelectedGender] = React.useState<Gender | "">(
-    params.get("gender") ? (params.get("gender") as "") : ""
+    Gender ? (Gender as "") : ""
   );
 
   const onChangeSize: React.ComponentPropsWithoutRef<"input">["onChange"] = (
@@ -81,7 +82,36 @@ function FilterMenu({ children }: React.ComponentPropsWithoutRef<"div">) {
     if (SelectedBrands.size > 0)
       query.append("brand", [...SelectedBrands].join(","));
     if (SelectedGender) query.append("gender", SelectedGender);
-    setSearch(query.toString());
+    if (query.toString()) setSearch(query.toString());
+  };
+
+  const RemoveFromSizes = (size: string) => {
+    const NewSizes = Sizes?.split(",").filter((x) => x !== size) as string[];
+    if (NewSizes.length === 0) {
+      Search.delete("size");
+    } else {
+      Search.set("size", NewSizes.join(","));
+    }
+    setSelectedSize(new Set(NewSizes));
+    setSearch(Search);
+  };
+
+  const RemoveFromBrands = (brand: string) => {
+    const NewBrands = Brand?.split(",").filter((x) => x !== brand) as string[];
+    if (NewBrands.length === 0) {
+      setSelectedBrands(new Set(NewBrands));
+      Search.delete("brand");
+    } else {
+      Search.set("brand", NewBrands.join(","));
+    }
+    setSelectedBrands(new Set(NewBrands));
+    setSearch(Search);
+  };
+
+  const RemoveFromGender = () => {
+    setSelectedGender("");
+    Search.delete("gender");
+    setSearch(Search);
   };
 
   const ClearAll = () => {
@@ -95,19 +125,28 @@ function FilterMenu({ children }: React.ComponentPropsWithoutRef<"div">) {
 
   return (
     <div className="w-1/3 bg-base-200 pb-sm rounded-md pt-5">
-      <div className="">
-        <h1 className="text-3xl text-center pb-5">Filters</h1>
-        <div className="flex flex-col lg:flex-row w-1/2 gap-5 mx-auto justify-evenly">
-          <input
-            type="submit"
-            value="Apply Filter"
-            className="btn"
-            onClick={SetFilter}
-          />
-          <button className="btn btn-active" onClick={ClearAll}>
-            Clear All
-          </button>
-        </div>
+      <h1 className="text-3xl text-center pb-5">Filters</h1>
+      <div className="flex gap-1 mb-sm mx-sm flex-wrap">
+        {Sizes?.split(",").map((item) => (
+          <RemoveButton RemoveFn={RemoveFromSizes} item={item} key={item} />
+        ))}
+        {Brand?.split(",").map((item) => (
+          <RemoveButton RemoveFn={RemoveFromBrands} item={item} key={item} />
+        ))}
+        {Gender ? (
+          <RemoveButton RemoveFn={RemoveFromGender} item={Gender} />
+        ) : null}
+      </div>
+      <div className="flex flex-col lg:flex-row w-1/2 gap-5 mx-auto justify-evenly">
+        <input
+          type="submit"
+          value="Apply Filter"
+          className="btn"
+          onClick={SetFilter}
+        />
+        <button className="btn btn-active" onClick={ClearAll}>
+          Clear All
+        </button>
       </div>
       <div className="divider"></div>
       <div>
@@ -116,6 +155,8 @@ function FilterMenu({ children }: React.ComponentPropsWithoutRef<"div">) {
             className="p-sm"
             onReset={(e) => {
               setSelectedSize(new Set());
+              Search.delete("size");
+              setSearch(Search.toString());
             }}
           >
             <div className="flex justify-between items-center">
@@ -142,6 +183,8 @@ function FilterMenu({ children }: React.ComponentPropsWithoutRef<"div">) {
             className="p-sm"
             onReset={(e) => {
               setSelectedGender("");
+              Search.delete("gender");
+              setSearch(Search.toString());
             }}
           >
             <div className="flex justify-between items-center">
@@ -175,6 +218,8 @@ function FilterMenu({ children }: React.ComponentPropsWithoutRef<"div">) {
             className="p-sm"
             onReset={(e) => {
               setSelectedBrands(new Set());
+              Search.delete("brand");
+              setSearch(Search);
             }}
           >
             <div className="flex justify-between items-center">
@@ -198,7 +243,19 @@ function FilterMenu({ children }: React.ComponentPropsWithoutRef<"div">) {
           </form>
         </div>
         <div className="flex justify-center">
-          <input type="submit" value="Apply Filter" className="btn" />
+          <input
+            type="submit"
+            value="Apply Filter"
+            className="btn"
+            onClick={() => {
+              SetFilter();
+              const Id = document.getElementById("Products");
+              window.scrollTo({
+                top: Id?.offsetTop || 0,
+                behavior: "smooth",
+              });
+            }}
+          />
         </div>
       </div>
     </div>
