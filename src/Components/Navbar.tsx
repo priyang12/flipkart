@@ -1,6 +1,6 @@
 function Navbar() {
   return (
-    <div className="navbar justify-center gap-24 bg-primary p-5 text-primary-content">
+    <div className="navbar flex-col md:flex-row justify-center gap-5 md:gap-24 bg-primary p-5 text-primary-content">
       <div className="">
         <span className="btn btn-ghost normal-case text-3xl">FlipKart</span>
       </div>

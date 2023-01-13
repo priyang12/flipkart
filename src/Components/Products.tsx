@@ -12,7 +12,9 @@ function ProductCard({ Item }: { Item: productsInterface }) {
       <figure className="px-5 pt-5 cursor-pointer">
         <img
           src={Item.productImageUrl}
-          alt="Shoes"
+          alt={Item.name}
+          width={100}
+          height={100}
           className="rounded-xl h-80 w-full"
         />
       </figure>
@@ -23,7 +25,10 @@ function ProductCard({ Item }: { Item: productsInterface }) {
           <img src={AssuredLogo} alt="asd" width={60} height={50} />
         </div>
 
-        <div className="flex flex-col md:flex-row items-center justify-start gap-5 w-52">
+        <a
+          className="flex flex-col md:flex-row items-center justify-start gap-5 w-52"
+          href="/"
+        >
           <div className="font-medium text-base-content text-xl">
             ₹
             {Math.floor(
@@ -37,7 +42,7 @@ function ProductCard({ Item }: { Item: productsInterface }) {
           <div className="text-green-700 font-medium">
             {Item.discountPercentage}% Off
           </div>
-        </div>
+        </a>
         <div className="flex">
           <span className="text-gray-500">Size: </span>
           <div className="">

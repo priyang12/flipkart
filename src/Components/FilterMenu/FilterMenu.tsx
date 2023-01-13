@@ -101,7 +101,7 @@ function FilterMenu({ children }: React.ComponentPropsWithoutRef<"div">) {
   };
 
   return (
-    <div className="w-1/3 bg-base-200 pb-sm rounded-md pt-5">
+    <div className="sm:w-1/3 bg-base-200 pb-sm rounded-md pt-5">
       <h1 className="text-3xl text-center pb-5">Filters</h1>
       <div className="flex gap-1 mb-sm mx-sm flex-wrap">
         {Sizes?.split(",").map((item) => (
