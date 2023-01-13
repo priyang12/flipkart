@@ -3,6 +3,7 @@ import React from "react";
 import { clsx } from "clsx";
 import { useSearchParams } from "react-router-dom";
 import { productsInterface } from "../../../data";
+import { useFilterSelect } from "../../Hooks/useFilterSelect";
 
 const SizesList: productsInterface["sizes"] = ["s", "sm", "m", "l", "xl"];
 const GenderList: productsInterface["gender"][] = ["female", "male", "unisex"];
@@ -19,7 +20,7 @@ const BrandsList: productsInterface["brand"][] = [
   "Versace",
   "Zara",
 ];
-
+type ReactInput = React.ComponentPropsWithoutRef<"input">;
 type Gender = productsInterface["gender"];
 
 function FilterMenu({ children }: React.ComponentPropsWithoutRef<"div">) {
@@ -29,49 +30,25 @@ function FilterMenu({ children }: React.ComponentPropsWithoutRef<"div">) {
   const Sizes = params.get("size");
   const Gender = params.get("gender");
 
-  const [SelectedSize, setSelectedSize] = React.useState<Set<string>>(
-    Sizes ? new Set(Sizes.split(",")) : new Set()
-  );
-  const [SelectedBrands, setSelectedBrands] = React.useState<Set<string>>(
-    Brand ? new Set(Brand.split(",")) : new Set()
-  );
+  const {
+    Selected: SelectedSize,
+    setSelected: setSelectedSize,
+    onKeyDown: onKeyDownSize,
+    onChangeSize,
+  } = useFilterSelect(Sizes as string);
+
+  const {
+    Selected: SelectedBrands,
+    setSelected: setSelectedBrands,
+    onKeyDown: onKeyDownBrands,
+    onChangeSize: onChangeSizeBrands,
+  } = useFilterSelect(Brand as string);
+
   const [SelectedGender, setSelectedGender] = React.useState<Gender | "">(
     Gender ? (Gender as "") : ""
   );
 
-  const onChangeSize: React.ComponentPropsWithoutRef<"input">["onChange"] = (
-    event
-  ) => {
-    if (event.target.checked) {
-      setSelectedSize(
-        (currentVal) => new Set([...currentVal, event.target.value])
-      );
-    } else {
-      setSelectedSize((currentVal) => {
-        currentVal.delete(event.target.value);
-        return new Set(currentVal);
-      });
-    }
-  };
-
-  const onChangeBrand: React.ComponentPropsWithoutRef<"input">["onChange"] = (
-    event
-  ) => {
-    if (event.target.checked) {
-      setSelectedBrands(
-        (currentVal) => new Set([...currentVal, event.target.value])
-      );
-    } else {
-      setSelectedBrands((currentVal) => {
-        currentVal.delete(event.target.value);
-        return new Set(currentVal);
-      });
-    }
-  };
-
-  const onChangeGender: React.ComponentPropsWithoutRef<"input">["onChange"] = (
-    event
-  ) => {
+  const onChangeGender: ReactInput["onChange"] = (event) => {
     setSelectedGender(event.target.value as productsInterface["gender"]);
   };
 
@@ -171,6 +148,7 @@ function FilterMenu({ children }: React.ComponentPropsWithoutRef<"div">) {
                     checked={SelectedSize.has(item as string)}
                     type="checkbox"
                     className="checkbox"
+                    onKeyDown={onKeyDownSize}
                     onChange={onChangeSize}
                   />
                   <span className="label-text">{item?.toUpperCase()}</span>
@@ -234,7 +212,8 @@ function FilterMenu({ children }: React.ComponentPropsWithoutRef<"div">) {
                     type="checkbox"
                     checked={SelectedBrands.has(item)}
                     className="checkbox"
-                    onChange={onChangeBrand}
+                    onChange={onChangeSizeBrands}
+                    onKeyDown={onKeyDownBrands}
                   />
                   <span className="label-text">{item.toUpperCase()}</span>
                 </label>
