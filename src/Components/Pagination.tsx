@@ -6,6 +6,14 @@ function Pagination({ TotalPages }: { TotalPages: number }) {
   const [Search, setSearch] = useSearchParams(search);
   const CurrentPage = Search.get("Page") ? Number(Search.get("Page")) : 1;
 
+  const scrollToTop = () => {
+    const Id = document.getElementById("Products");
+    window.scrollTo({
+      top: Id?.offsetTop || 0,
+      behavior: "smooth",
+    });
+  };
+
   return (
     <div className="flex justify-center mt-5">
       <div className="divider"></div>
@@ -18,11 +26,10 @@ function Pagination({ TotalPages }: { TotalPages: number }) {
             )}
             key={item}
             onClick={() => {
-              if (Search.has("Page")) {
-                Search.delete("Page");
-              }
+              if (Search.has("Page")) Search.delete("Page");
               Search.append("Page", String(item + 1));
               setSearch(Search.toString());
+              scrollToTop();
             }}
           >
             {item + 1}

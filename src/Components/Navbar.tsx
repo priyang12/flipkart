@@ -1,5 +1,3 @@
-import React from "react";
-
 function Navbar() {
   return (
     <div className="navbar justify-center gap-24 bg-primary p-5 text-primary-content">

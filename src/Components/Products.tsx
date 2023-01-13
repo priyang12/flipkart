@@ -52,12 +52,13 @@ function ProductCard({ Item }: { Item: productsInterface }) {
 
 function Products({
   ProductsData,
+  ...props
 }: {
   ProductsData: productsInterface[];
 } & React.ComponentPropsWithoutRef<"div">) {
   if (!ProductsData) return null;
   return (
-    <div className="md:mx-sm">
+    <div className="md:mx-sm" {...props}>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
         {ProductsData?.map((item, index) => (
           <ProductCard Item={item} key={index} />
